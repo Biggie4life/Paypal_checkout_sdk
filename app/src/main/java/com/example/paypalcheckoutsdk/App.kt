@@ -10,8 +10,8 @@ import com.paypal.checkout.createorder.UserAction
 
 class App : Application() {
 
-    var clientID = "AY2j0F-O6hV9AYAccP3Gg8SPF6HjSyrAe83Lo0hUXvrVGDm78eFoxsNzsDA2NQglhrXqObUOegjhfjJo"
-    var returnUrl = "com.example.paypalcheckoutsdk://paypalpay"
+    var clientID = "YOUR_CLIENT_ID"
+    var returnUrl = "YOUR_APP_PACKAGE_NAME://paypalpay"
 
     override fun onCreate() {
         super.onCreate()
@@ -29,5 +29,4 @@ class App : Application() {
         )
         PayPalCheckout.setConfig(config)
     }
-
 }
