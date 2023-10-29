@@ -3,6 +3,7 @@ package com.example.paypalcheckoutsdk
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.example.paypalcheckoutsdk.databinding.ActivityMainBinding
@@ -31,20 +32,20 @@ class MainActivity : ComponentActivity() {
         setContentView(binding.root)
 
         binding.paymentButtonContainer.setup(
-            createOrder =
-            CreateOrder { createOrderActions ->
-                val order =
-                    OrderRequest(
-                        intent = OrderIntent.CAPTURE,
-                        appContext = AppContext(userAction = UserAction.PAY_NOW),
-                        purchaseUnitList =
-                        listOf(
-                            PurchaseUnit(
-                                amount =
-                                Amount(currencyCode = CurrencyCode.USD, value = "10.00")
-                            )
+            createOrder = CreateOrder { createOrderActions ->
+                val customAmountEditText = findViewById<EditText>(R.id.customAmountEditText)
+                val customAmountText = customAmountEditText.text.toString()
+                val customAmount = if (customAmountText.isNotEmpty()) customAmountText else "10.00"
+
+                val order = OrderRequest(
+                    intent = OrderIntent.CAPTURE,
+                    appContext = AppContext(userAction = UserAction.PAY_NOW),
+                    purchaseUnitList = listOf(
+                        PurchaseUnit(
+                            amount = Amount(currencyCode = CurrencyCode.USD, value = customAmount)
                         )
                     )
+                )
                 createOrderActions.create(order)
             },
             onApprove =
